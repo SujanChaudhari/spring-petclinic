@@ -6,13 +6,13 @@ pipeline {
     }
 
     environment {
-        JAVA_HOME = '/usr/lib/jvm/java-11-openjdk' // Update this if needed
+        JAVA_HOME = '/usr/lib/jvm/java-21-openjdk' // Update this if needed
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/YOUR_GITHUB_USERNAME/spring-petclinic.git'
+                git 'https://github.com/SujanChaudhari/spring-petclinic.git'
             }
         }
 
