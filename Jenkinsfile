@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME = '/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home'
-        PATH = "${JAVA_HOME}/bin:${PATH}"
-    }
+    JAVA_HOME = '/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home'
+    PATH = "${JAVA_HOME}/bin:/opt/homebrew/bin:/opt/homebrew/Cellar/maven/3.9.9/bin:${PATH}"
+}
 
     stages {
         stage('Checkout') {
