@@ -6,7 +6,8 @@ pipeline {
     }
 
     environment {
-        JAVA_HOME = '/usr/lib/jvm/java-21-openjdk' // Update this if needed
+        JAVA_HOME = '/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home'
+        PATH = "${JAVA_HOME}/bin:${PATH}"
     }
 
     stages {
