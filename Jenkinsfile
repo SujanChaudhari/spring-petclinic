@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    triggers {
-        cron('H/3 * * * 4')  // Runs every 3 minutes on Thursdays
-    }
-
     environment {
         JAVA_HOME = '/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home'
         PATH = "${JAVA_HOME}/bin:${PATH}"
@@ -13,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/SujanChaudhari/spring-petclinic.git'
+                git credentialsId: 'github-credentials', url: 'https://github.com/SujanChaudhari/spring-petclinic.git', branch: 'main'
             }
         }
 
@@ -35,10 +31,14 @@ pipeline {
             }
             post {
                 success {
-                    jacoco execPattern: '**/target/jacoco.exec', 
-                           classPattern: '**/target/classes', 
-                           sourcePattern: '**/src/main/java', 
-                           inclusionPattern: '**/*.java'
+                    publishHTML([
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: 'target/site/jacoco',
+                        reportFiles: 'index.html',
+                        reportName: 'JaCoCo Code Coverage Report'
+                    ])
                 }
             }
         }
@@ -47,6 +47,15 @@ pipeline {
             steps {
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
+        }
+    }
+
+    post {
+        failure {
+            echo "❌ Build failed! Check the console output for errors."
+        }
+        success {
+            echo "✅ Build and tests completed successfully!"
         }
     }
 }
