@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+SPRING_PROFILES_ACTIVE = 'postgres'
     JAVA_HOME = '/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home'
     PATH = "${JAVA_HOME}/bin:/opt/homebrew/bin:/opt/homebrew/Cellar/maven/3.9.9/bin:${PATH}"
 }
